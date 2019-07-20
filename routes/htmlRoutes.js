@@ -5,7 +5,24 @@ module.exports = function(app) {
   app.get("/", function(req, res) {
     db.Example.findAll({}).then(function(dbExamples) {
       res.render("index", {
-        msg: "Welcome!",
+        examples: dbExamples
+      });
+    });
+  });
+
+  // Load watchlist page
+  app.get("/watch", function(req, res) {
+    db.Example.findAll({}).then(function(dbExamples) {
+      res.render("watchlist", {
+        examples: dbExamples
+      });
+    });
+  });
+
+  // Load reviews page
+  app.get("/reviews", function(req, res) {
+    db.Example.findAll({}).then(function(dbExamples) {
+      res.render("reviews", {
         examples: dbExamples
       });
     });

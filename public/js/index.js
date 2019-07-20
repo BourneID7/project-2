@@ -1,3 +1,15 @@
+// Foundation js for nav bar
+$(function() {
+  $(window).scroll(function() {
+    var winTop = $(window).scrollTop();
+    if (winTop >= 30) {
+      $("body").addClass("sticky-shrinknav-wrapper");
+    } else {
+      $("body").removeClass("sticky-shrinknav-wrapper");
+    }
+  });
+});
+
 // Get references to page elements
 var $exampleText = $("#example-text");
 var $exampleDescription = $("#example-description");

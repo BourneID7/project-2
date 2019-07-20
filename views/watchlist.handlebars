@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <img src="/images/upstream.png" width="120" class="d-inline-block align-top" alt="Upstream">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav align-right">
+      <a class="nav-item nav-link" href="/">Home</a>
+      <a class="nav-item nav-link active" href="#">Watchlist <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="/reviews">Reviews</a>
+    </div>
+  </div>
+</nav>
+
+<div id="watch">
+  <div class="container bkgd-white">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 mb-12 centered">
+        <h1>Your Streaming Watchlist</h1>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 mb-6">
+            <h4>Movies to Watch:</h4>
+            <ul id="example-list" class="list-group">
+                {{#each examples}}
+                    <li data-id="{{this.id}}" class="list-group-item">
+                        <a href="example/{{this.id}}">{{this.text}}</a>
+                        <button class="btn btn-primary float-right watched">Watched</button>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="col-lg-6 cl-md-6 mb-6">
+          <h4>Seen It:</h4>
+          <ul id="example-list" class="list-group">
+              {{#each examples}}
+                  <li data-id="{{this.id}}" class="list-group-item">
+                      <a href="example/{{this.id}}">{{this.text}}</a>
+                      <button class="btn btn-primary float-right review">Review it</button>
+                  </li>
+              {{/each}}
+          </ul>
+        </div>
+    </div>
+  </div>
+  <!-- review form -->
+  <div class="container bkgd-white">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 mb-12 centered">
+        <h4>Sumbit Your Review</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8 offset-2">
+          <h5>{{this.title}}</h5>
+          <form>
+            <div class="form-group">
+                <label for="reviewTextarea1">What did you think of it?</label>
+                <textarea class="form-control" id="reviewTextarea1" rows="3"></textarea>
+            </div>
+            <button id="submit" class="btn btn-primary float-right">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
