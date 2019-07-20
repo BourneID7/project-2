@@ -10,7 +10,9 @@ CREATE TABLE `upstream` (
   `Actors` TEXT NOT NULL,
   `Cover_Photo_url` TEXT NOT NULL,
   `Streaming_Services` VARCHAR( 500 ) NOT NULL,
-  `Release_at` DATETIME NOT NULL,
+  `Release_Date` DATETIME NOT NULL,
+  'Review' TEXT,
+  'Watched' TINYINT(1)
 
   PRIMARY KEY ( `id` ) 
 );

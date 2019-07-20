@@ -1,3 +1,10 @@
+ // News API Variables
+ var apikey = "5770f35bd27b1796219b5d2052e05ef64dec0b60"
+ var candidate;
+ var candidateId;
+ var queryURL;
+ var candidateQueryURL;
+
 // Get references to page elements
 var $exampleText = $("#example-text");
 var $exampleDescription = $("#example-description");
@@ -97,3 +104,73 @@ var handleDeleteBtnClick = function() {
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
+
+
+
+
+
+
+
+
+// JS for modules from project 1
+
+
+$('body').on("click", ".candidate", function () {
+  console.log("Candidate Clicked")
+  candidateId = "";
+  candidateId = $(this).attr("id");
+  candidate = $(this).attr("name");
+  console.log("Candidate: " + candidate + candidateId)
+  candidateQueryURL = "https://newsapi.org/v2/everything?q=" + candidate + "&apiKey=" + apikey +
+      "&language=en&sources=fox-news,cnn";
+  console.log(candidateQueryURL)
+  // Create the return object
+  VSQueryURLD = "https://api.votesmart.org/CandidateBio.getDetailedBio?key=" + votesSmartKey + "&candidateId=" + candidateId + "&o=JSON";
+
+  // wikipedia Variables
+  var wikiURL = "https://en.wikipedia.org/api/rest_v1/page/summary/";
+
+  wikiURL += candidate;
+
+  console.log(wikiURL)
+
+  $.ajax( {
+      url: wikiURL,
+  //   dataType: 'jsonp',
+      method: "GET"
+  }).then(function(response){
+      $(document).text(JSON.stringify(response));
+
+      $("movie-info").empty();
+
+      console.log(response.extract)
+
+      bio = response.extract
+      $("movie-info").append(bio + " " + "(source: wikipedia.org)")
+
+  });
+
+  $.ajax({
+      url: VSQueryURLD,
+      method: "GET"
+  }).then(function (response) {
+      // var json = xmlToJson(response);
+
+
+      // console.log(json)
+
+      title = response.results.title;
+      releaseDate = response.results.release_date;
+      poster = response.results.poster_240x342;
+      rating = response.results.rating;
+
+
+      $(document).ready(createBio);
+
+
+      console.log("XML :" + VSQueryURLD);
+      requestNews(candidateQueryURL)
+
+  });
+
+});
