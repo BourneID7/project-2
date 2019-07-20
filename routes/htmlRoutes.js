@@ -3,36 +3,36 @@ var db = require("../models");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
+    db.Post.findAll({}).then(function(dbPosts) {
       res.render("index", {
-        examples: dbExamples
+        Posts: dbPosts
       });
     });
   });
 
   // Load watchlist page
   app.get("/watch", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
+    db.Post.findAll({}).then(function(dbPosts) {
       res.render("watchlist", {
-        examples: dbExamples
+        Posts: dbPosts
       });
     });
   });
 
   // Load reviews page
   app.get("/reviews", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
+    db.Post.findAll({}).then(function(dbPosts) {
       res.render("reviews", {
-        examples: dbExamples
+        Posts: dbPosts
       });
     });
   });
 
-  // Load example page and pass in an example by id
-  app.get("/example/:id", function(req, res) {
-    db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
-      res.render("example", {
-        example: dbExample
+  // Load Post page and pass in an Post by id
+  app.get("/Post/:id", function(req, res) {
+    db.Post.findOne({ where: { id: req.params.id } }).then(function(dbPost) {
+      res.render("Post", {
+        Post: dbPost
       });
     });
   });
