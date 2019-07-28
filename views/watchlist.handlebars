@@ -12,6 +12,50 @@
   </div>
 </nav>
 
+<div id="login">
+    <div class="container bkgd-white">
+      <div class="row top-bottom-pad">
+        <div class="col-lg-12 col-md-12 mb-12">
+          <h5 class="centered">You must be logged in to add a movie to your watchlist.</h5>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-6 col-md-6 mb-6">
+              <h6>New Users: create account</h6>
+              <form method="POST" action="/register">
+                  <div class="form-group">
+                      <label for="username">Username</label>
+                      <input type="text" id="username" class="form-control" aria-describedby="username" placeholder="Choose a user name">
+                  </div>
+                  <div class="form-group">
+                      <label for="username">Password</label>
+                      <input type="password" id="password" class="form-control" aria-describedby="password" placeholder="Choose a password (8 to 20 characters)">
+                  </div>
+                  <div class="form-group">
+                      <label for="username">Re-enter Password</label>
+                      <input type="password" id="passwordMatch" class="form-control" aria-describedby="passwordMatch" placeholder="Re-enter your password">
+                  </div>
+                  <button id="submitNewUser" class="btn btn-primary float-right">Submit</button>
+              </form>
+          </div>
+          <div class="col-lg-6 col-md-6 mb-6">
+              <h6>Already have an account? Log in:</h6>
+              <form method="POST" action="/login">
+                  <div class="form-group">
+                      <label for="usernameReturningUser">Username</label>
+                      <input type="text" id="usernameReturningUser" class="form-control" aria-describedby="usernameReturningUser" placeholder="Enter username">
+                  </div>
+                  <div class="form-group">
+                      <label for="passwordReturningUser">Password</label>
+                      <input type="password" id="passwordReturningUser" class="form-control" aria-describedby="passwordReturningUser" placeholder="Enter password">
+                  </div>
+                  <button id="submitReturningUser" class="btn btn-primary float-right">Submit</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+
 <div id="watch">
   <div class="container bkgd-white">
     <div class="row">

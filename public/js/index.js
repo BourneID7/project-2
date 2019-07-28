@@ -1,20 +1,15 @@
-// Foundation js for nav bar
-$(function() {
-  $(window).scroll(function() {
-    var winTop = $(window).scrollTop();
-    if (winTop >= 30) {
-      $("body").addClass("sticky-shrinknav-wrapper");
-    } else {
-      $("body").removeClass("sticky-shrinknav-wrapper");
-    }
-  });
-});
-
 // Get references to page elements
 var $exampleText = $("#example-text");
 var $exampleDescription = $("#example-description");
 var $submitBtn = $("#submit");
 var $exampleList = $("#example-list");
+var $username = $("#username");
+var $password = $("#password");
+var $passwordMatch = $("#passwordMatch");
+var $submitNewUser = $("#submitNewUser");
+var $usernameReturningUser = $("#usernameReturningUser");
+var $passwordReturningUser = $("#passwordReturningUser");
+var $submitReturningUser = $("#submitReturningUser");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -38,6 +33,25 @@ var API = {
     return $.ajax({
       url: "api/examples/" + id,
       type: "DELETE"
+    });
+  }
+};
+
+var userAPI = {
+  saveUser: function(user) {
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "/api/users",
+      data: JSON.stringify(user)
+    });
+  },
+  getUser: function() {
+    return $.ajax({
+      url: "/api/users",
+      type: "GET"
     });
   }
 };
@@ -106,6 +120,77 @@ var handleDeleteBtnClick = function() {
   });
 };
 
+// handle new user registration form submit
+var handleRegistrationSubmit = function(event) {
+  event.preventDefault();
+
+  var user = {
+    username: $username.val().trim(),
+    password: $password.val().trim()
+  };
+  var passwordMatch = $passwordMatch.val().trim();
+  console.log("password match: ", passwordMatch);
+
+  if (!(user.username || user.password)) {
+    alert("You must enter a username and password!");
+    return;
+  } else 
+  if (user.password.length < 8 || user.password.length > 100) {
+     alert("Password must be 8 to 20 characters.");
+     $password.val("");
+     $("#passwordMatch").val("");
+     return;
+  } else
+  if (passwordMatch !== user.password) {
+    alert("Passwords do not match. Try again.");
+    $password.val("");
+    $("#passwordMatch").val("");
+    return;
+  } else {
+    userAPI.saveUser(user).then(function() {
+      refreshExamples();
+      alert("Registration successful!");
+    });
+  };
+
+  $username.val("");
+  $password.val("");
+  $("#passwordMatch").val("");
+
+};
+
+// handle new user registration form submit
+var handleLoginSubmit = function(event) {
+  event.preventDefault();
+
+  var user = {
+    username: $usernameReturningUser.val().trim(),
+    password: $passwordReturningUser.val().trim()
+  };
+
+  if (!(user.username)) {
+    alert("You must enter a username and password!");
+    return;
+  } else 
+  if (!(user.password)) {
+    alert("You must enter a username and password!");
+    return;
+  } else {
+    userAPI.getUser(user).then(function() {
+      refreshExamples();
+      // alert("Login successful!");
+    });
+  };
+
+  $usernameReturningUser.val("");
+  $passwordReturningUser.val("");
+};
+
+
+
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
+$submitNewUser.on("click", handleRegistrationSubmit);
+$submitReturningUser.on("click", handleLoginSubmit);
+
