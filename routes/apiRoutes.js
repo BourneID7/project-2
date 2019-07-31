@@ -26,6 +26,26 @@ module.exports = function(app) {
     });
   });
 
+    // Get streaming services from guidebox api
+    // app.get("/api/guidebox", function(req, res) {
+
+    //   var guideboxKey = keys.guideboxKey;
+    //   var userMovie = req.query.search;
+    //   var guideboxURL = "http://api-public.guidebox.com/v2/search?type=movie&field=title&query=" + userMovie;
+    //   var authorization = guideboxKey;
+    //   console.log(omdbURL);
+  
+    //   axios.get(guideboxURL).then(function(result) {
+    //     authorization:
+    //     res.send(result.data);
+    //     console.log(result.data);
+  
+    //   }).catch(function(err) {
+    //     console.log(err);
+    //   });
+    // });
+  
+
   // Create a new movie
   app.post("/api/watch", function(req, res) {
     console.log("movie: ", req.body);
@@ -41,7 +61,34 @@ module.exports = function(app) {
     }).then(function(dbPost) {
         res.json(dbPost);
     });
-});
+  });
+
+  app.get("/api/watch", function(req, res) {
+    db.Post.findAll({}).then(function(dbPosts) {
+      var hbsObject = {
+        Posts: dbPosts
+      };
+      res.render("index", hbsObject);
+    });
+  });
+
+  // put route to update watched status
+  app.put("/api/watch/:id", function(req, res) {
+    // console.log("update", req.body);
+    var id = req.params.id
+    console.log("id: ", id);
+
+    db.Post.update({
+      Watched: true,
+      updatedAt: new Date(),
+    }, {
+      where: {
+      id: id
+      }
+    }).then(function(results) {
+        res.json(results);
+    });
+  });
 
   // Delete an example by id
   app.delete("/api/examples/:id", function(req, res) {

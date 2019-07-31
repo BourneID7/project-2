@@ -137,6 +137,20 @@ var handleAddWatchlist = function(event) {
 
 };
 
+// put request function to change watched value to true when "watched" button clicked
+$(".watched").on("click", function() {
+  var id = $(this).attr("data-id");
+
+  // send put request
+  $.ajax("/api/watch/" + id, {
+      type: "PUT"
+  }).then(function(){
+      console.log("Watched it");
+  });
+  // reload page
+  location.reload();
+});
+
 
 // handleDeleteBtnClick is called when an example's delete button is clicked
 // Remove the example from the db and refresh the list
@@ -222,5 +236,5 @@ $("body").on("click", ".watch", handleAddWatchlist);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
 $submitNewUser.on("click", handleRegistrationSubmit);
 $submitReturningUser.on("click", handleLoginSubmit);
-})
+});
 
