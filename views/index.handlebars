@@ -25,15 +25,7 @@
           </div>
           <button id="submit" class="btn btn-primary float-right">Submit</button>
         </form>
-        {{!-- <h3>Examples:</h3>
-        <ul id="example-list" class="list-group">
-          {{#each examples}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-primary float-right delete">ｘ</button>
-          </li>
-          {{/each}}
-        </ul> --}}
+       
       </div>
     </div>
   </div>
@@ -78,3 +70,36 @@
     </div>
   </div>
 </div>
+
+<script>
+
+$(document).ready(function() {
+  $("#submit").on("click", function(event) {
+    event.preventDefault();
+    var userMovie = $("#search").val();
+    console.log(userMovie);
+    
+
+  
+
+  $.ajax({
+  url: "/api/omdb?search=" + userMovie,
+  method: "GET"
+  
+  
+  }).done(function(json) {
+    console.log(json);
+  }) ;
+
+
+
+});
+})
+    
+
+
+
+
+
+
+</script>
