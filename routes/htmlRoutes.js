@@ -41,4 +41,40 @@ module.exports = function(app) {
   app.get("*", function(req, res) {
     res.render("404");
   });
+
+  // load login page
+  app.get("/api/users", function(req, res) {
+    db.User.findAll({}).then(function(dbUser) {
+      res.render("watchlist", {
+        User: dbUser
+      });
+    });
+  });
+
+  app.get("/register", function(req, res) {
+    db.User.findAll({}).then(function(dbUser) {
+      res.render("register", {
+        User: dbUser
+      });
+    });
+  });
+
+
+  // load registration page
+  app.get("/api/users", function(req, res) {
+      res.render("watchlist");
+  });
+
+  app.get("/login", function(req, res) {
+    res.render("login");
+  });
+
+  // post route to add new user
+  // app.post("/login", function(req, res) {
+  //   console.log(req.body.username);
+  //   console.log(req.body.password);
+  //   res.render("login", {
+  //     User: dbUser
+  //   });
+  // });
 };

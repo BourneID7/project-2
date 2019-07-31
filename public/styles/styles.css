@@ -1,5 +1,5 @@
 body{
-  background: url(/images/stars-bkgd.jpg) no-repeat;
+  background: url(/images/stars-bkgd.jpg) no-repeat center center fixed;
   background-position: center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -52,4 +52,22 @@ h4 {
 }
 .btn-primary:hover {
   background: rgb(22, 103, 133);
+}
+.alert-primary {
+  background: rgb(212, 236, 245);
+  color:  rgb(22, 103, 133);
+}
+.top-bottom-pad {
+  padding: 20px 0;
+}
+.card-margin {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.review {
+  float: right;
+  margin-right: 20px;
+}
+.watched {
+  text-align: right;
 }
