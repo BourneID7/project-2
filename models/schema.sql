@@ -1,3 +1,4 @@
+
 DROP DATABASE IF EXISTS upstream_db;
 CREATE DATABASE upstream_db;
 USE upstream_db;
