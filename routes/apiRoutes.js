@@ -1,26 +1,47 @@
 var db = require("../models");
 var axios = require("axios");
-var keys = require("../config.js")
+var keys = require("./config.js")
 var expressValidator = require("express-validator");
 var passport = require("passport");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 module.exports = function(app) {
-  // Get all examples
-  app.get("/api/guidebox", function(req, res) {
-    // db.Post.findAll({}).then(function(dbExamples) {
-    //   res.json(dbExamples);
-    // });
-    
-  });
+  // Get all movies
+  app.get("/api/omdb", function(req, res) {
 
-  // Create a new example
-  app.post("/api/examples", function(req, res) {
-    db.Post.create(req.body).then(function(dbExample) {
-      res.json(dbExample);
+    var omdbKey = keys.omdbKey;
+    var userMovie = req.query.search;
+    var imdbID;
+    var omdbURL = "http://www.omdbapi.com/?apikey=" + omdbKey + "&t=" + userMovie;
+
+    console.log(omdbURL);
+
+    axios.get(omdbURL).then(function(result) {
+      res.send(result.data);
+      console.log(result.data);
+
+    }).catch(function(err) {
+      console.log(err);
     });
   });
+
+  // Create a new movie
+  app.post("/api/watch", function(req, res) {
+    console.log("movie: ", req.body);
+
+    db.Post.create({
+      Title: req.body.Title,
+      Info: req.body.Info,
+      Actors: req.body.Actors,
+      Cover_Photo_Url: req.body.Cover_Photo_Url,
+      Release_Date: req.body.Release_Date,
+      Steaming_Services: req.body.Steaming_Services,
+      createdAt: new Date()
+    }).then(function(dbPost) {
+        res.json(dbPost);
+    });
+});
 
   // Delete an example by id
   app.delete("/api/examples/:id", function(req, res) {
@@ -66,10 +87,10 @@ module.exports = function(app) {
         console.log("string DBUSER: ", dbUser);
 
         db.User.findOne({
-          where: {
-            username: dbUser.dataValues.username
-          }
-          // order: [ [ "createdAt", "DESC" ]]
+          // where: {
+          //   username: dbUser.dataValues.username
+          // }
+          order: [ [ "createdAt", "DESC" ]]
         }).then(function(results) {
           // if (err) throw err;
           console.log("is this being read 2?");

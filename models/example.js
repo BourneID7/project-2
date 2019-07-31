@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     Steaming_Services: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     Release_Date: {
       type: DataTypes.DATE,

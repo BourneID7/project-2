@@ -1,7 +1,9 @@
+$(document).ready(function() {
 // Get references to page elements
 var $exampleText = $("#example-text");
 var $exampleDescription = $("#example-description");
 var $submitBtn = $("#submit");
+var $watchBtn = $(".watch");
 var $exampleList = $("#example-list");
 var $username = $("#username");
 var $password = $("#password");
@@ -87,26 +89,54 @@ var refreshExamples = function() {
 
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
-var handleFormSubmit = function(event) {
+// var handleFormSubmit = function(event) {
+//   event.preventDefault();
+
+//   var example = {
+//     text: $exampleText.val().trim(),
+//     description: $exampleDescription.val().trim()
+//   };
+
+//   if (!(example.text && example.description)) {
+//     alert("You must enter an example text and description!");
+//     return;
+//   }
+
+//   API.saveExample(example).then(function() {
+//     refreshExamples();
+//   });
+
+//   $exampleText.val("");
+//   $exampleDescription.val("");
+// };
+
+// handleAddWatchlist is called when add to watchlist button is clicked
+var handleAddWatchlist = function(event) {
   event.preventDefault();
 
-  var example = {
-    text: $exampleText.val().trim(),
-    description: $exampleDescription.val().trim()
+  console.log($(this).data("title"));
+  var movie = {
+    "Title": $(this).data("title"),
+    "Info": $(this).data("info"),
+    "Actors": $(this).data("actors"),
+    "Cover_Photo_Url": $(this).data("cover_photo_url"),
+    "Release_Date": $(this).data("release_date"),
+    "Steaming_Services": $(this).data("streaming_services")
   };
 
-  if (!(example.text && example.description)) {
-    alert("You must enter an example text and description!");
-    return;
-  }
+  console.log("movie: ", movie);
 
-  API.saveExample(example).then(function() {
-    refreshExamples();
+  return $.ajax({
+    headers: {
+      "Content-Type": "application/json"
+    },
+    type: "POST",
+    url: "/api/watch",
+    data: JSON.stringify(movie)
   });
 
-  $exampleText.val("");
-  $exampleDescription.val("");
 };
+
 
 // handleDeleteBtnClick is called when an example's delete button is clicked
 // Remove the example from the db and refresh the list
@@ -187,7 +217,10 @@ var handleLoginSubmit = function(event) {
 };
 
 // Add event listeners to the submit and delete buttons
-$submitBtn.on("click", handleFormSubmit);
+// $submitBtn.on("click", handleFormSubmit);
+$("body").on("click", ".watch", handleAddWatchlist);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
 $submitNewUser.on("click", handleRegistrationSubmit);
 $submitReturningUser.on("click", handleLoginSubmit);
+})
+

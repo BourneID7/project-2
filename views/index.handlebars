@@ -8,7 +8,7 @@
       <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="/watch">Watchlist</a>
       <a class="nav-item nav-link" href="/reviews">Reviews</a>
-      <a class="nav-item nav-link" href="/login">Login</a>
+      {{!-- <a class="nav-item nav-link" href="/login">Login</a> --}}
     </div>
   </div>
 </nav>
@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" id="movieResults">
       {{#each movie}}
         <div class="col-lg-4 col-md-4 mb-4">
           <!--Modal: Name-->
@@ -76,6 +76,70 @@
               data-toggle="modal" data-target="#modal1"></a>                                        
         </div>
       {{/each}}
+
+      <!-- movie results card -->
+      <div class="card mb-3 card-margin" style="max-width: 540px;">
+        <div class="row no-gutters" id="cardRow">
+          <div class="col-md-4" id="moviePoster">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body" id="movieInfo">
+            </div>
+          </div>
+        </div>
+      </div> <!-- end movie card -->
     </div>
   </div>
 </div>
+
+<script>
+$(document).ready(function() {
+  $("#submit").on("click", function(event) {
+    event.preventDefault();
+    var userMovie = $("#search").val();
+    console.log(userMovie);
+  
+    $.ajax({
+    url: "/api/omdb?search=" + userMovie,
+    method: "GET"
+    
+    }).then(function(result) {
+      
+      console.log("result: ", result);
+
+      // display movie search results
+      // var newCard = $('<div class="card mb-3 card-margin" style="max-width: 540px;">');
+      var cardRow = $('<div class="row no-gutters">');
+      // var cardImgCol = $('<div class="col-md-4" id="moviePoster">');
+      // var cardTextCol = $('<div class="col-md-8">');
+      // var cardTextBody = $('<div class="card-body" id="movieInfo">');
+      var movieImg= $('<img class="card-img">');
+      var movieImgUrl = result.Poster;
+      var movieTitle = result.Title;
+      var moviePlot = result.Plot;
+      var h5 = $('<h5 class="card-title">');
+      var p = $('<p class="card-text">');
+      var watchBtn = $('<button type="button" class="btn btn-primary btn-md ml-4 watch" data-title="' + result.Title + '" data-info="' + result.Plot + '" data-actors="' + result.Actors + '" data-cover_photo_url="' + result.Poster + '" data-release_date="' + result.Year + '" data-streaming_services="' + null + '">');
+      //watchBtn.data("title", result.Title);
+      var hr = $("<hr>");
+      h5.text(movieTitle);
+      p.text(moviePlot);
+      watchBtn.text("Add to watchlist")
+      movieImg.attr("src", movieImgUrl);
+      movieImg.attr("alt", movieTitle);
+
+      // $("#movieResults").append(newCard);
+      // newCard.append(cardRow);
+      // cardRow.append(cardImgCol);
+      // cardRow.append(cardTextCol);
+      // cardTextCol.append(cardTextBody);
+      $("#moviePoster").append(movieImg);
+      $("#movieInfo").append(h5);
+      $("#movieInfo").append(p); 
+      $("#movieInfo").append(watchBtn);
+      $("#cardRow").append(hr);
+      });
+  });
+});
+    
+</script>
