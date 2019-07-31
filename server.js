@@ -21,6 +21,9 @@ const sequelizeSessionStore = new SessionStore({
   db: myDatabase,
 });
 
+var db = require("./models");
+var keys = require("./config.js");
+
 var app = express();
 var PORT = process.env.PORT || 3000;
 
