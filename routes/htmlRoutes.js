@@ -51,11 +51,23 @@ module.exports = function(app) {
     });
   });
 
-    // load registration page
-    app.get("/api/users", function(req, res) {
-        res.render("watchlist");
+  app.get("/register", function(req, res) {
+    db.User.findAll({}).then(function(dbUser) {
+      res.render("register", {
+        User: dbUser
+      });
     });
-  
+  });
+
+
+  // load registration page
+  app.get("/api/users", function(req, res) {
+      res.render("watchlist");
+  });
+
+  app.get("/login", function(req, res) {
+    res.render("login");
+  });
 
   // post route to add new user
   // app.post("/login", function(req, res) {

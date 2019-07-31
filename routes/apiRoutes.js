@@ -1,18 +1,18 @@
 var db = require("../models");
+var axios = require("axios");
+var keys = require("../config.js")
 var expressValidator = require("express-validator");
 var passport = require("passport");
-var LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 module.exports = function(app) {
   // Get all examples
-  app.get("/api/examples", function(req, res) {
-    db.Post.findAll({}).then(function(dbExamples) {
-      console.log(req.user);
-      console.log(req.isAuthenticated());
-      res.json(dbExamples);
-    });
+  app.get("/api/guidebox", function(req, res) {
+    // db.Post.findAll({}).then(function(dbExamples) {
+    //   res.json(dbExamples);
+    // });
+    
   });
 
   // Create a new example
@@ -28,6 +28,16 @@ module.exports = function(app) {
       res.json(dbExample);
     });
   });
+
+    // Get all users
+    app.get("/api/users", function(req, res) {
+      db.User.findAll({}).then(function(dbUsers) {
+        console.log("username: ", req.username);
+        console.log("authenticated: ", req.isAuthenticated());
+        res.json(dbUsers);
+      });
+    });
+  
 
   // post route to add new user
   app.post("/api/users", function(req, res) {
@@ -53,28 +63,35 @@ module.exports = function(app) {
         createdAt: new Date()
       }).then(function(dbUser) {
         res.json(dbUser);
+        console.log("string DBUSER: ", dbUser);
+
+        db.User.findOne({
+          where: {
+            username: dbUser.dataValues.username
+          }
+          // order: [ [ "createdAt", "DESC" ]]
+        }).then(function(results) {
+          // if (err) throw err;
+          console.log("is this being read 2?");
+          console.log(results);
+          var user_id = results[0];
+  
+          req.login(user_id, function(err) {
+            if (err) throw err;
+            console.log("username: ", req.username);
+            console.log("authenticated: ", req.isAuthenticated());
+    
+            // createCookie();
+            res.redirect("/watch");
+          });
+        }); 
+  
       })
       .catch(function(err) {
         // print the error details
         console.log(err, req.body.username);
       });
-
-      db.User.findAll({
-        limit: 1,
-        order: [ [ "createdAt", "DESC" ]]
-      }).then(function(err, results){
-        if (err) throw err;
-
-        console.log(results);
-        var user_id = results[0];
-
-        req.login(user_id, function(err) {
-          if (err) throw err;
-          res.redirect("/watch");
-        });
-      }); 
     });
-
   });
 
   passport.serializeUser(function(user_id, done) {
@@ -85,20 +102,9 @@ module.exports = function(app) {
     done(null, user_id);
   });
 
-  passport.use(new LocalStrategy(
-    function(username, password, done) {
-      User.findOne({ username: username }, function (err, user) {
-        if (err) { return done(err); }
-        if (!user) { return done(null, false); }
-        if (!user.verifyPassword(password)) { return done(null, false); }
-        return done(null, user);
-      });
-    }
-  ));
-
   app.post("/api/users", 
-  passport.authenticate("local", { failureRedirect: "/watch" }),
-  function(req, res) {
-    res.redirect("/");
+    passport.authenticate("local", { failureRedirect: "/watch" }),
+    function(req, res) {
+      res.redirect("/");
   });
 };

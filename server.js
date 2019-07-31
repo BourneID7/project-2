@@ -8,6 +8,8 @@ const expressSession = require('express-session');
 const SessionStore = require('express-session-sequelize')(expressSession.Store);
 var cookieParser = require("cookie-parser");
 var passport = require("passport");
+var LocalStrategy = require("passport-local").Strategy;
+var bcrypt = require("bcrypt");
 
 var db = require("./models");
 const Sequelize = require("sequelize");
@@ -40,6 +42,68 @@ app.use(expressSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    console.log(username);
+    console.log(password);
+    User.findOne({ id: id, username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      var hash = password.toString();
+      bcrypt.compare(password, hash, function(err, response) {
+        if (response === true) {
+          return done(null, {id: id});
+        } else {
+          return done(null, false);
+        }
+      });
+      if (!user.verifyPassword(password)) { return done(null, false); }
+      return done(null, user);
+    });
+  }
+));
+
+// set a cookie
+var createCookie = function (req, res, next) {
+  // check if client sent cookie
+  var cookie = req.cookies.cookieName;
+  if (cookie === undefined)
+  {
+    // no: set a new cookie
+    var randomNumber=Math.random().toString();
+    randomNumber=randomNumber.substring(2,randomNumber.length);
+    res.cookie("cookieUpstream",randomNumber, { maxAge: 900000 });
+    console.log("cookie created successfully");
+  } 
+  else
+  {
+    // yes, cookie was already present 
+    console.log("cookie exists", cookie);
+  } 
+  next(); // <-- important!
+};
+
+
+// // set a cookie
+// app.use(function (req, res, next) {
+//   // check if client sent cookie
+//   var cookie = req.cookies.cookieName;
+//   if (cookie === undefined)
+//   {
+//     // no: set a new cookie
+//     var randomNumber=Math.random().toString();
+//     randomNumber=randomNumber.substring(2,randomNumber.length);
+//     res.cookie("cookieUpstream",randomNumber, { maxAge: 900000 });
+//     console.log("cookie created successfully");
+//   } 
+//   else
+//   {
+//     // yes, cookie was already present 
+//     console.log("cookie exists", cookie);
+//   } 
+//   next(); // <-- important!
+// });
 
 // Handlebars
 app.engine(
