@@ -94,13 +94,13 @@ var userAPI = {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "/api/users",
+      url: "/register",
       data: JSON.stringify(user)
     });
   },
   getUser: function() {
     return $.ajax({
-      url: "/api/users",
+      url: "/login",
       type: "GET"
     });
   }
@@ -174,7 +174,7 @@ var handleAddWatchlist = function(event) {
 
   console.log("movie: ", movie);
 
-  return $.ajax({
+  $.ajax({
     headers: {
       "Content-Type": "application/json"
     },
@@ -182,7 +182,7 @@ var handleAddWatchlist = function(event) {
     url: "/api/watch",
     data: JSON.stringify(movie)
   });
-
+  window.location.assign("/watch");
 };
 
 // put request function to change watched value to true when "watched" button clicked
@@ -193,24 +193,35 @@ $(".watched").on("click", function() {
   $.ajax("/api/watch/" + id, {
       type: "PUT"
   }).then(function(){
-      console.log("Watched it");
+    // reload page
+    location.reload(true);
   });
-  // reload page
-  location.reload();
 });
 
+// delete request function to remove mvie from watchlist when "delete" button clicked
+$(".delete").on("click", function() {
+  var id = $(this).attr("data-id");
+
+  // send put request
+  $.ajax("/api/watch/" + id, {
+      type: "DELETE"
+  }).then(function(){
+    // reload page
+    location.reload(true);
+  });
+});
 
 // handleDeleteBtnClick is called when an example's delete button is clicked
 // Remove the example from the db and refresh the list
-// var handleDeleteBtnClick = function() {
-//   var idToDelete = $(this)
-//     .parent()
-//     .attr("data-id");
+var handleDeleteBtnClick = function() {
+  var idToDelete = $(this)
+    .parent()
+    .attr("data-id");
 
-//   API.deleteExample(idToDelete).then(function() {
-//     refreshExamples();
-//   });
-// };
+  API.deleteExample(idToDelete).then(function() {
+    refreshExamples();
+  });
+};
 
 // handle new user registration form submit
 var handleRegistrationSubmit = function(event) {

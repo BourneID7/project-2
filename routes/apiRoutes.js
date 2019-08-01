@@ -1,6 +1,6 @@
 var db = require("../models");
 var axios = require("axios");
-var keys = require("./config.js")
+var keys = require("../config.js")
 var expressValidator = require("express-validator");
 var passport = require("passport");
 const bcrypt = require("bcrypt");
@@ -91,14 +91,14 @@ module.exports = function(app) {
   });
 
   // Delete an example by id
-  app.delete("/api/examples/:id", function(req, res) {
-    db.Post.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
-      res.json(dbExample);
+  app.delete("/api/watch/:id", function(req, res) {
+    db.Post.destroy({ where: { id: req.params.id } }).then(function(dbPosts) {
+      res.json(dbPosts);
     });
   });
 
     // Get all users
-    app.get("/api/users", function(req, res) {
+    app.get("/login", function(req, res) {
       db.User.findAll({}).then(function(dbUsers) {
         console.log("username: ", req.username);
         console.log("authenticated: ", req.isAuthenticated());
@@ -108,7 +108,7 @@ module.exports = function(app) {
   
 
   // post route to add new user
-  app.post("/api/users", function(req, res) {
+  app.post("/register", function(req, res) {
     console.log(req.body);
 
     req.checkBody(req.body.username, "Username cannot be empty").notEmpty();
@@ -170,7 +170,7 @@ module.exports = function(app) {
     done(null, user_id);
   });
 
-  app.post("/api/users", 
+  app.post("/login", 
     passport.authenticate("local", { failureRedirect: "/watch" }),
     function(req, res) {
       res.redirect("/");
