@@ -1,6 +1,6 @@
 var db = require("../models");
 var axios = require("axios");
-var keys = require("./config.js")
+var keys = require("../config.js")
 var expressValidator = require("express-validator");
 var passport = require("passport");
 const bcrypt = require("bcrypt");
