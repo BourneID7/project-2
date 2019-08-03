@@ -14,88 +14,88 @@
 </nav>
 
 <div id="home">
-   <div data-aos="slide-down">
-  <div class="container bkgd-white">
-    <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 constrain">
-        <h1>Your Streaming Watchlist</h1>
-        <h4>Find Streaming Sources</h4>
-        <form class="clearfix mb-4" action="POST">
-          <div class="form-group">
-            <label for="search">Movie Title</label>
-            <input type="text" id="search" name="search" class="form-control" aria-describedby="search" placeholder="Enter Movie Title">
-          </div>
-          <button id="submit" class="btn btn-primary float-right">Submit</button>
-        </form>
-        {{!-- <h3>Examples:</h3>
-        <ul id="example-list" class="list-group">
-          {{#each examples}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-primary float-right delete">ｘ</button>
-          </li>
-          {{/each}}
-        </ul> --}}
-      </div>
-    </div>
-  </div>
-  </div>
-<div data-aos="slide-up">
-  <div class="container bkgd-white">
-    <div class="row">
-      <div class="col-lg-12 col-md-12 mb-12 centered">
-        <h4>Search Results</h4>
+  <div data-aos="slide-down">
+    <div class="container bkgd-white">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 constrain">
+          <h1>Your Streaming Watchlist</h1>
+          <h4>Find Streaming Sources</h4>
+          <form class="clearfix mb-4" action="POST">
+            <div class="form-group">
+              <label for="search">Movie Title</label>
+              <input type="text" id="search" name="search" class="form-control" aria-describedby="search" placeholder="Enter Movie Title">
+            </div>
+            <button id="submit" class="btn btn-primary float-right">Submit</button>
+          </form>
+          {{!-- <h3>Examples:</h3>
+          <ul id="example-list" class="list-group">
+            {{#each examples}}
+            <li data-id="{{this.id}}" class="list-group-item">
+              <a href="example/{{this.id}}">{{this.text}}</a>
+              <button class="btn btn-primary float-right delete">ｘ</button>
+            </li>
+            {{/each}}
+          </ul> --}}
+        </div>
       </div>
     </div>
   </div>
 
-    <div class="row" id="movieResults">
-      {{#each movie}}
-        <div class="col-lg-4 col-md-4 mb-4">
-          <!--Modal: Name-->
-          <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document"> <!-- CHANGE ID TO ADD NEW VIDEO-->                                      
-              <!--Content-->
-              <div class="modal-content">                                        
-                <!--Body-->
-                <div class="modal-body mb-0 p-0">                                        
-                  <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
-                    <iframe class="embed-responsive-item" id="vid-1" src="https://www.youtube.com/embed/A3PDXmYoF5U" allowfullscreen="1"></iframe> <!-- VIDEO. CHANGE URL IN FINAL-->
+  <div data-aos="slide-down">
+    <div class="container bkgd-white">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 mb-12 centered">
+          <h4>Search Results</h4>
+        </div>
+      </div>
+
+      <div class="row" id="movieResults">
+        {{#each movie}}
+          <div class="col-lg-4 col-md-4 mb-4">
+            <!--Modal: Name-->
+            <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document"> <!-- CHANGE ID TO ADD NEW VIDEO-->                                      
+                <!--Content-->
+                <div class="modal-content">                                        
+                  <!--Body-->
+                  <div class="modal-body mb-0 p-0">                                        
+                    <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+                      <iframe class="embed-responsive-item" id="vid-1" src="https://www.youtube.com/embed/A3PDXmYoF5U" allowfullscreen="1"></iframe> <!-- VIDEO. CHANGE URL IN FINAL-->
+                    </div>                                        
                   </div>                                        
-                </div>                                        
-                <!--Footer Close Button-->
-                <div class="modal-footer justify-content-center"> 
-                  <button type="button" class="btn btn-primary btn-md ml-4 add-to-list">Add to Watchlist</button>     
-                  <button type="button" class="btn btn-outline-primary btn-md ml-4" data-dismiss="modal">Close</button>     
-                </div>                                        
+                  <!--Footer Close Button-->
+                  <div class="modal-footer justify-content-center"> 
+                    <button type="button" class="btn btn-primary btn-md ml-4 add-to-list">Add to Watchlist</button>     
+                    <button type="button" class="btn btn-outline-primary btn-md ml-4" data-dismiss="modal">Close</button>     
+                  </div>                                        
+                </div>
+                <!--/.Content-->                                        
               </div>
-              <!--/.Content-->                                        
-            </div>
-        </div>
-        <!--/.Modal: Name-->
-                        
-          <!-- PLACEHOLDER IMAGE. REPLACE URL & ALT TEXT FOR FINAL-->
-          <a><img class="img-fluid z-depth-1" id="img-1" src="https://mdbootstrap.com/img/screens/yt/screen-video-1.jpg" alt="video"
-              data-toggle="modal" data-target="#modal1"></a>                                        
-        </div>
-      {{/each}}
+          </div>
+          <!--/.Modal: Name-->
+                          
+            <!-- PLACEHOLDER IMAGE. REPLACE URL & ALT TEXT FOR FINAL-->
+            <a><img class="img-fluid z-depth-1" id="img-1" src="https://mdbootstrap.com/img/screens/yt/screen-video-1.jpg" alt="video"
+                data-toggle="modal" data-target="#modal1"></a>                                        
+          </div>
+        {{/each}}
 
-      <!-- movie results card -->
-      <center>
-      <div class="card mb-3 card-margin" style="max-width: 540px;">
-        <div class="row no-gutters" id="cardRow">
-          <div class="col-md-4" id="moviePoster">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body" id="movieInfo">
+        <!-- movie results card -->
+        <div class="card mb-3 card-margin" style="max-width: 540px;">
+          <div class="row no-gutters" id="cardRow">
+            <div class="col-md-4" id="moviePoster">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body" id="movieInfo">
+              </div>
             </div>
           </div>
-        </div>
-      </div> <!-- end movie card -->
+        </div> <!-- end movie card -->
+      </div>
     </div>
   </div>
 </div>
-</center>
+
 <script>
 $(document).ready(function() {
   $("#submit").on("click", function(event) {

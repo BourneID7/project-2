@@ -214,6 +214,7 @@ $("#submitReview").on("click", function(event) {
   }).then(function(){
     // reload page
     location.reload(true);
+    window.location.assign("/reviews");
   });
 });
 

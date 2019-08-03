@@ -147,12 +147,16 @@
       <div class="col-md-12 constrain">
           <form>
             <div class="form-group">
-                <label for="reviewTitle">Title</label>
-                <input type="text" class="form-control" id="reviewTitle"></input>
+                <label for="movieTitles">Title</label>
+                <select class="form-control" id="movieTitles">
+                  {{#each Posts}}
+                    <option value="{{this.id}}">{{this.Title}}</option>
+                  {{/each}}
+                </select>
             </div>
             <div class="form-group">
-                <label for="reviewTextarea1">What did you think of it?</label>
-                <textarea class="form-control" id="reviewTextarea1" rows="3"></textarea>
+                <label for="reviewText">What did you think of it?</label>
+                <textarea class="form-control" id="reviewText" rows="3"></textarea>
             </div>
             <button id="submitReview" class="btn btn-primary float-right">Submit</button>
         </form>

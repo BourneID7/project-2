@@ -98,7 +98,7 @@ h4 {
 }
 
 /* media queries */
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 576px) {
   .nav-item {
     background-color: #343A40 !important;
   }
@@ -111,6 +111,14 @@ h4 {
   }
   .constrain {
     max-width: 100%;
+  }
+  .navbar {
+    max-width: 100%;
+  }
+  .align-right {
+    position: relative;
+    margin-right: 1rem;
+    text-align: center;
   }
   
 }
