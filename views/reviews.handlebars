@@ -20,13 +20,22 @@
       </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 col-md-12 mb-12">
-            <ul id="example-list" class="list-group">
-                {{#each examples}}
+        <div class="col-lg-12 col-md-12 col-sm-12 constrain">
+            <ul id="review-list" class="list-group">
+                {{#each Posts}}
+                  {{#if Review}}
                     <li data-id="{{this.id}}" class="list-group-item">
-                        <h6>{{this.title}}</h6>
-                        <p>{{this.review}}</p>
+                      <div class="row">
+                        {{!-- <div class="col-lg-3 col-md-3 mb-3 col-xs-3">
+                          <img src="{{this.Cover_Photo_Url}}" height="150px">
+                        </div> --}}
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <h6><img src="{{this.Cover_Photo_Url}}" class="float-left" height="150px">{{this.Title}}</h6>
+                          <p>{{this.Review}}</p>
+                        </div>
+                      </div>
                     </li>
+                  {{/if}}
                 {{/each}}
             </ul>
         </div>

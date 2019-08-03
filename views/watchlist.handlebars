@@ -56,57 +56,95 @@
   </div>
 </div> --}}
 
+<!-- watch div with animation -->
 <div id="watch">
   <div class="container bkgd-white">
     <div class="row">
-      <div class="col-lg-12 col-md-12 mb-12 centered">
+      <div class="col-md-12 centered">
         <h1>Your Streaming Watchlist</h1>
       </div>
     </div>
     <div class="row">
-        <div class="col-lg-6 col-md-6 mb-6">
+        <div class="col-md-6 col-sm-12">
             <h4>Movies to Watch:</h4>
               {{#each Posts}}
                 {{#unless Watched}}
+                <div data-aos="fade-left">
                   <h5>{{this.Title}}</h5>
                   <div class="row">
-                    <div class="col-lg-3 col-md-3 mb-3">
-                      <img src="{{this.Cover_Photo_Url}}" height="150px">
-                    </div>
-                    <div class="col-lg-9 col-md-9 mb-9">
-                      <p>{{this.Info}}</p>
-                      <p>{{this.Steaming_Sources}}</p>
+                    <div class="col-md-12">
+                      <p><img src="{{this.Cover_Photo_Url}}" class="float-left" height="150px">{{this.Info}}</p>
+                      {{!-- <p>{{this.Steaming_Sources}}</p> --}}
                       <button class="btn btn-primary btn-sm watched" data-id="{{this.id}}">Watched</button>
                       <button class="btn btn-primary btn-sm delete" data-id="{{this.id}}">Delete from watchlist</button>
+                      {{!-- <p>
+                        <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                          More Info:
+                        </button>
+                      </p>
+                      <div class="collapse" id="collapseExample">
+                        <div class="card card-body"> --}}
+                          {{!-- <p>Rated: </p> --}}
+                          {{!-- <p>Actors: {{this.Actors}}</p> --}}
+                          {{!-- <p>Release Date: {{this.Release_Date}}</p> --}}
+                          {{!-- {{#if Steaming_Services}}
+                            <p>Streaming Services: {{this.Steaming_Services}}</p>
+                          {{/if}}
+                        </div>
+                      </div> --}}
                     </div>
                   </div>
-                  <hr>
-                {{/unless}}
-              {{/each}}
+                </div>
+                <hr>
+              {{/unless}}
+            {{/each}}
         </div>
-        <div class="col-lg-6 cl-md-6 mb-6">
+        <div class="col-md-6 col-sm-12 clearfix">
           <h4>Seen It:</h4>
               {{#each Posts}}
                 {{#if Watched}}
-                  <h5>
-                    {{this.Title}}
-                    {{!-- <button class="btn btn-primary btn-sm review" data-id="{{this.id}}">Review it</button> --}}
-                  </h5>
+                <div data-aos="fade-right">
+                  <h5>{{this.Title}}</h5>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p><img src="{{this.Cover_Photo_Url}}" class="float-left" height="150px">{{this.Info}}</p>
+                      {{!-- <p>{{this.Steaming_Sources}}</p> --}}
+                      
+                      {{!-- <p>
+                        <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                          More Info:
+                        </button>
+                      </p>
+                      <div class="collapse" id="collapseExample">
+                        <div class="card card-body"> --}}
+                          {{!-- <p>Rated: </p> --}}
+                          {{!-- <p>Actors: {{this.Actors}}</p> --}}
+                          {{!-- <p>Release Date: </p> --}}
+                          {{!-- {{#if Steaming_Services}}
+                            <p>Streaming Services: {{this.Steaming_Services}}</p>
+                          {{/if}}
+                        </div>
+                      </div> --}}
+                    </div>
+                    </div>
+                  </div>
                   <hr>
                 {{/if}}
               {{/each}}
         </div>
     </div>
+    </div>
   </div>
   <!-- review form -->
+ <div data-aos="slide-up">
   <div class="container bkgd-white">
     <div class="row">
-      <div class="col-lg-12 col-md-12 mb-12 centered">
+      <div class="col-md-12 centered">
         <h4>Submit Your Review</h4>
       </div>
     </div>
     <div class="row">
-      <div class="col-8 offset-2">
+      <div class="col-md-12 constrain">
           <form>
             <div class="form-group">
                 <label for="reviewTitle">Title</label>
@@ -119,6 +157,7 @@
             <button id="submitReview" class="btn btn-primary float-right">Submit</button>
         </form>
       </div>
+    </div>
     </div>
   </div>
 </div>

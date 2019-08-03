@@ -162,7 +162,6 @@ var userAPI = {
 var handleAddWatchlist = function(event) {
   event.preventDefault();
 
-  console.log($(this).data("title"));
   var movie = {
     "Title": $(this).data("title"),
     "Info": $(this).data("info"),
@@ -197,6 +196,27 @@ $(".watched").on("click", function() {
     location.reload(true);
   });
 });
+
+// put request to add review
+$("#submitReview").on("click", function(event) {
+  event.preventDefault();
+  var id = $("#movieTitles").val();
+  console.log("review title id: ", id)
+  var review = $("#reviewText").val()
+
+  // send put request
+  $.ajax("/api/review/" + id, {
+    headers: {
+      "Content-Type": "application/json"
+    },
+    type: "PUT",
+    data: JSON.stringify({reviewText: review})
+  }).then(function(){
+    // reload page
+    location.reload(true);
+  });
+});
+
 
 // delete request function to remove mvie from watchlist when "delete" button clicked
 $(".delete").on("click", function() {
