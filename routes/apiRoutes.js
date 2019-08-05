@@ -11,10 +11,10 @@ module.exports = function(app) {
  app.get("/api/omdb", function(req, res) {
   var omdbKey = keys.omdbKey;
   var userMovie = req.query.search;
-  var guideBoxID;
-  var guideboxKey = keys.guideboxKey;
-  var guideBoxIDURL = "http://api-public.guidebox.com/v2/search?api_key=" + guideboxKey + "&limit=2&type=movie&field=title&query=" + userMovie ;
-  var guideBoxURL = "http://api-public.guidebox.com/v2/movies/" + guideBoxID + "?api_key=" + guideboxKey + "&sources?type=free"
+  // var guideBoxID;
+  // var guideboxKey = keys.guideboxKey;
+  // var guideBoxIDURL = "http://api-public.guidebox.com/v2/search?api_key=" + guideboxKey + "&limit=2&type=movie&field=title&query=" + userMovie ;
+  // var guideBoxURL = "http://api-public.guidebox.com/v2/movies/" + guideBoxID + "?api_key=" + guideboxKey + "&sources?type=free"
   var omdbURL = "http://www.omdbapi.com/?apikey=" + omdbKey + "&t=" + userMovie;
   var userMovie = req.query.search;
   // retrieves OMDB info
@@ -29,57 +29,59 @@ module.exports = function(app) {
       })
     };
   // retrieves guidebox movie info and movie ID to use for finding streaming services
-   function getID() {
-    return axios.get(guideBoxIDURL).then(function(resultTwo) {
-      // authorization:
-      // console.log(guideBoxIDURL)
-      console.log("this is the ID: " + resultTwo.data.results[0].id);
-      guideBoxID = resultTwo.data.results[0].id
-      return (resultTwo.data.results[0].id);
-      // console.log(resultTwo.data);
-    }).catch(function(err) {
-      console.log(err);
-    })
-    };
-  // retrieves streaming services after a promise to retrieve movie ID
-  function getStreaming() {
-    axios.get(guideBoxIDURL).then(function(resultTwo) {
-      // authorization:
-      // console.log(guideBoxIDURL)
-      console.log("this is the ID: " + resultTwo.data.results[0].id);
-      guideBoxID = resultTwo.data.results[0].id
-      var guideBoxURL = "http://api-public.guidebox.com/v2/movies/" + guideBoxID + "?api_key=" + guideboxKey + "&sources?type=free"
-      // console.log(resultTwo.data.results[0]);
-      axios.get(guideBoxURL).then(function(resultThree) {
-        // console.log(guideBoxIDURL)
-        var i;
-        for (var i = 0; i < 5; i++) {
-        // console.log(resultThree.data)
-        if (!resultThree.data.purchase_web_sources[i] ||!resultThree.data.purchase_web_sources[i].display_name) {
-        } else {
-          console.log("Purchase Web Sources: " + resultThree.data.purchase_web_sources[i].display_name + " "  + resultThree.data.purchase_web_sources[i].link);
-        }};
-        for (var i = 0; i < 5; i++) {
-          if (!resultThree.data.free_web_sources[i] || !resultThree.data.free_web_sources[i].display_name) {
-        } else {
-          console.log("Free Web Sources: " + resultThree.data.free_web_sources[i].display_name + " "  + resultThree.data.free_web_sources[i].link);
-        }};
-        for (var i = 0; i < 5; i++) {
-          if (!resultThree.data.subscription_web_sources[i] ||!resultThree.data.subscription_web_sources[i].display_name ) {
-        } else {
-          console.log("Subscription Web Sources: " + resultThree.data.subscription_web_sources[i].display_name + " "  + resultThree.data.subscription_web_sources[i].link);
-        }};
-        // return (resultThree.data);
-        // console.log(resultThree.data);
-      }).catch(function(err) {
-        console.log(err)
-      })
-    }).catch(function(err) {
-      console.log(err);
-    })
-   };
+  //  function getID() {
+  //   return axios.get(guideBoxIDURL).then(function(resultTwo) {
+  //     // authorization:
+  //     // console.log(guideBoxIDURL)
+  //     console.log("this is the ID: " + resultTwo.data.results[0].id);
+  //     guideBoxID = resultTwo.data.results[0].id
+  //     return (resultTwo.data.results[0].id);
+  //     // console.log(resultTwo.data);
+  //   }).catch(function(err) {
+  //     console.log(err);
+  //   })
+  //   };
+  // // retrieves streaming services after a promise to retrieve movie ID
+  // function getStreaming() {
+  //   axios.get(guideBoxIDURL).then(function(resultTwo) {
+  //     // authorization:
+  //     // console.log(guideBoxIDURL)
+  //     console.log("this is the ID: " + resultTwo.data.results[0].id);
+  //     guideBoxID = resultTwo.data.results[0].id
+  //     var guideBoxURL = "http://api-public.guidebox.com/v2/movies/" + guideBoxID + "?api_key=" + guideboxKey + "&sources?type=free"
+  //     // console.log(resultTwo.data.results[0]);
+  //     axios.get(guideBoxURL).then(function(resultThree) {
+  //       // console.log(guideBoxIDURL)
+  //       var i;
+  //       for (var i = 0; i < 5; i++) {
+  //       // console.log(resultThree.data)
+  //       if (!resultThree.data.purchase_web_sources[i] ||!resultThree.data.purchase_web_sources[i].display_name) {
+  //       } else {
+  //         console.log("Purchase Web Sources: " + resultThree.data.purchase_web_sources[i].display_name + " "  + resultThree.data.purchase_web_sources[i].link);
+  //       }};
+  //       for (var i = 0; i < 5; i++) {
+  //         if (!resultThree.data.free_web_sources[i] || !resultThree.data.free_web_sources[i].display_name) {
+  //       } else {
+  //         console.log("Free Web Sources: " + resultThree.data.free_web_sources[i].display_name + " "  + resultThree.data.free_web_sources[i].link);
+  //       }};
+  //       for (var i = 0; i < 5; i++) {
+  //         if (!resultThree.data.subscription_web_sources[i] ||!resultThree.data.subscription_web_sources[i].display_name ) {
+  //       } else {
+  //         console.log("Subscription Web Sources: " + resultThree.data.subscription_web_sources[i].display_name + " "  + resultThree.data.subscription_web_sources[i].link);
+  //       }};
+  //       // return (resultThree.data);
+  //       // console.log(resultThree.data);
+  //     }).catch(function(err) {
+  //       console.log(err)
+  //     })
+  //   }).catch(function(err) {
+  //     console.log(err);
+  //   })
+  //  };
   // runs OMDB info function and guidebox function at the same time
-    axios.all([getOMDB(), getStreaming()])
+    axios.all([getOMDB(), 
+      // getStreaming()
+    ])
     .then(axios.spread(function (result, streams) {
       console.log(result, streams)
       res.json(result);
