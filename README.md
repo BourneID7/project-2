@@ -1,7 +1,7 @@
 Project 2
 
 Concept: 
-Movie/show watch list app
+Movie watch list app
 
 
 Will have:
@@ -9,7 +9,7 @@ Will have:
     -Option to check "watched" and write a review
 
 
-APIs: Guidebox
+APIs: OMDB
 
 Heroku URL: https://project-2jjmr.herokuapp.com/
 
@@ -19,15 +19,13 @@ Landing Pages:
         Nav Bar
         Search Bar
         Empty with caption "Search movies to add to watch list" if no movies have been added to database
-        -else show all movies added to database
 
-    Watched:
-        List of Watched Movies/Shows
+    Watchlist:
+        List of Watched Movies
+        List of Unwatched Movies
+        Form to submit a review
 
-    Unwatched:
-        List of Unwatched Movies/Shows
-
-    Modules for different movies/shows:
+    Modules for different movies:
         -Title
         -Actors
         -Info
@@ -35,6 +33,8 @@ Landing Pages:
         -Streaming services available
         -Watched Button
 
+    Reviews:
+        List of user reviews
 
 
 
