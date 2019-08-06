@@ -182,7 +182,7 @@ var handleAddWatchlist = function(event) {
     data: JSON.stringify(movie),
     success: function(res) {
       $("#watch").html(res).delay(2000);
-}
+    }
   });
   window.location.assign("/watch");
 };
