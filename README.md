@@ -35,4 +35,4 @@ Landing Pages:
 
 For Future Devolopment:
     -User Log in
-    -Recommended/Popluar Movies Reel
+    -Recommended/Popular Movies Reel
