@@ -16,13 +16,11 @@ Landing Pages:
         Nav Bar
         Search Bar
         Empty with caption "Search movies to add to watch list" if no movies have been added to database
-        -else show all movies added to database
 
-    Watched:
+    Watchlist:
         List of Watched Movies
-
-    Unwatched:
         List of Unwatched Movies
+        Form to submit a review
 
     Modules for different movies:
         -Title
