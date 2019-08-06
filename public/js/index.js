@@ -179,7 +179,10 @@ var handleAddWatchlist = function(event) {
     },
     type: "POST",
     url: "/api/watch",
-    data: JSON.stringify(movie)
+    data: JSON.stringify(movie),
+    success: function(res) {
+      $("#watch").html(res).delay(2000);
+}
   });
   window.location.assign("/watch");
 };
