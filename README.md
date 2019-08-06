@@ -1,18 +1,15 @@
-Project 2
+# UpStream
 
 Concept: 
 Movie watch list app
 
-
 Will have:
-    -Option to add movies/shows to a watch list
+    -Option to add movies to a watch list
     -Option to check "watched" and write a review
-
 
 APIs: OMDB
 
 Heroku URL: https://project-2jjmr.herokuapp.com/
-
 
 Landing Pages:
     Home:
@@ -35,9 +32,6 @@ Landing Pages:
 
     Reviews:
         List of user reviews
-
-
-
 
 For Future Devolopment:
     -User Log in
