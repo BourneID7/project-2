@@ -1,40 +1,54 @@
 # UpStream
 
-Concept: 
-Movie watch list app
+UpStream is a movie watchlist app that allows users to search for movies, add them to a watchlist, mark a movie as watched, and write a review.
 
-Will have:
-    -Option to add movies to a watch list
-    -Option to check "watched" and write a review
-
-APIs: OMDB
+## Technology Used:
+* API: OMDB
+* Node JS
+* Express
+* MySQL and Sequelize
+* Handlebars
+* jQuery
+* Bootstrap
+* AOS (Animate on Scroll library)
 
 Heroku URL: https://project-2jjmr.herokuapp.com/
 
-Landing Pages:
+## Landing Pages:
+    
+
     Home:
         Nav Bar
         Search Bar
-        Empty with caption "Search movies to add to watch list" if no movies have been added to database
-        -else show all movies added to database
+        Search Results
 
-    Watched:
+    Watchlist:
         List of Watched Movies
-
-    Unwatched:
         List of Unwatched Movies
+        Form to submit a review
 
     Modules for different movies:
         -Title
-        -Actors
         -Info
         -Cover
-        -Streaming services available
         -Watched Button
 
     Reviews:
         List of user reviews
 
-For Future Devolopment:
-    -User Log in
-    -Recommended/Popular Movies Reel
+## Home
+<img src="public/images/home-screenshot.jpg" alt="home page" />
+
+## Watchlist
+<img src="public/images/watchlist-screenshot.jpg" alt="watchlist page" />
+
+<img src="public/images/submit-review-screenshot.jpg" alt="Submit a review" />
+
+## Reviews
+<img src="public/images/reviews-screenshot.jpg" alt="reviews page" />
+
+
+For Future Development:
+* User login for user-specific watchlist and profile
+* List of streaming services where movie is available
+* Recommended/Popular Movies Reel

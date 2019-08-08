@@ -179,12 +179,18 @@ var handleAddWatchlist = function(event) {
     },
     type: "POST",
     url: "/api/watch",
-    data: JSON.stringify(movie),
-    success: function(res) {
-      $("#watch").html(res).delay(2000);
+    data: JSON.stringify(movie)
     }
+  ).then(function() {
+    // get updated data before loading watchlist page
+    $.ajax({
+      type: "GET",
+      url: "/api/watch",
+      success: function(res) {
+        $("#watch").html(res).delay(1000);
+    }});
+    window.location.assign("/watch");
   });
-  window.location.assign("/watch");
 };
 
 // put request function to change watched value to true when "watched" button clicked
