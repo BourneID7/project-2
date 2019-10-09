@@ -2,6 +2,12 @@
 
 UpStream is a movie watchlist app that allows users to search for movies, add them to a watchlist, mark a movie as watched, and write a review.
 
+## Getting Started
+To start the app on a development server clone the repo and run npm install. Then use the schema.sql file to create the database in MySQL Workbench. Run npm start to start up the development server.
+
+### Prerequisites
+Sign up for an API key from OMBD: https://www.omdbapi.com/apikey.aspx and add to .env file as omdb_Key=[your key].
+
 ## Technology Used:
 * API: OMDB
 * Node JS
